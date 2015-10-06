@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../es6/app.js"],"names":[],"mappings":";;AAAA,CAAC,YAAW;AACR,gBAAY,CAAA;AACZ,QAAI,IAAI,GAAG,SAAP,IAAI;eAAS,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC;KAAA,CAAA;AAClC,QAAI,EAAE,CAAA;CACT,CAAA,EAAG,CAAC","file":"app.js","sourcesContent":["(function() {\n    \"use strict\"\n    let init = () => console.log(\"Hi\")\n    init()\n})();\n"]}

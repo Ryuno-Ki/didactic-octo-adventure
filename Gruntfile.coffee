@@ -1,10 +1,18 @@
 module.exports = (grunt) ->
 
+    require('load-grunt-tasks')(grunt)
     require('time-grunt')(grunt)
 
     # Project configuration.
     grunt.initConfig
         pkg: grunt.file.readJSON 'package.json'
+
+        babel:
+            options:
+                sourceMap: true
+            dist:
+                files:
+                    'src/js/app.js': 'es6/app.js'
 
         cssmin:
             options:
@@ -17,12 +25,12 @@ module.exports = (grunt) ->
 
         'gh-pages':
             options:
-                base: '.'
+                base: 'build'
             src: [
-                'build/index.html'
-                'build/app.min.css'
-                'build/app.min.js'
-                'build/require.min.js'
+                'index.html'
+                'app.min.css'
+                'app.min.js'
+                'require.min.js'
             ]
 
         htmlmin:
@@ -68,7 +76,7 @@ module.exports = (grunt) ->
                     screwIE8: true
                     sourceMap: true
                 files:
-                    'build/app.min.js': [ 'src/app.js' ]
+                    'build/app.min.js': [ 'src/js/app.js' ]
 
         watch:
             scripts:
@@ -97,6 +105,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-jshint'
     grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-contrib-watch'
+    grunt.loadNpmTasks 'grunt-babel'
     grunt.loadNpmTasks 'grunt-gh-pages'
     grunt.loadNpmTasks 'grunt-jsdoc'
     grunt.loadNpmTasks 'grunt-mocha-chai-sinon'
@@ -106,6 +115,7 @@ module.exports = (grunt) ->
     grunt.registerTask 'default', [
         'htmlmin'
         'cssmin'
+        'babel'
         'uglify'
         'gh-pages'
         'watch'
