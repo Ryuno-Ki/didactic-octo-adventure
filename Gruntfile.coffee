@@ -81,11 +81,13 @@ module.exports = (grunt) ->
         watch:
             scripts:
                 files: [
-                    'src/js/*.js'
+                    'es6/*.js'
+                    'src/index.html'
                     'src/css/*.css'
                 ]
                 tasks: [
                     'cssmin'
+                    'babel'
                     'uglify'
                     'jshint'
                     'gh-pages'
