@@ -1,0 +1,24 @@
+{
+  "name": "didactic-octo-adventure",
+  "version": "1.0.0",
+  "description": "Aims to learn both, ECMAScript 2015 and image processing",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ryuno-Ki/didactic-octo-adventure.git"
+  },
+  "keywords": [
+    "Image processing",
+    "ECMAScript 2015",
+    "ES6"
+  ],
+  "author": "André Jaenisch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ryuno-Ki/didactic-octo-adventure/issues"
+  },
+  "homepage": "https://github.com/Ryuno-Ki/didactic-octo-adventure#readme"
+}
