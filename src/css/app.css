@@ -3,14 +3,12 @@ body {
     background-color: #FFF;
 }
 
-#results + div,
-#results + div + div {
+#results + div {
     width: 45%;
     float: left;
 }
 
-#image-upload {
-    display: block;
-    max-width: 100%;
-    height: auto;
+#colour-value {
+    min-width: 32px;
+    min-height: 32px;
 }

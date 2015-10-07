@@ -4,11 +4,8 @@
 
     let previewImage = () => {
         let file = upload.files[0]
-        let preview = document.querySelector("#image-preview")
         let ctx = canvas.getContext("2d")
         let reader = new FileReader()
-
-        console.log("Upload", upload, "File", file, "Preview", preview)
 
         reader.onloadend = () => {
             let img = new Image()
@@ -18,15 +15,10 @@
                 ctx.drawImage(img, 0, 0)
             }
             img.src = reader.result
-            preview.src = reader.result
             return
         }
 
-        if (preview) {
-            reader.readAsDataURL(file)
-        } else {
-            preview.src = ""
-        }
+        reader.readAsDataURL(file)
     }
 
     // Taken from https://stackoverflow.com/a/6736135
@@ -63,7 +55,9 @@
         let ctx = canvas.getContext("2d")
         let pixel = ctx.getImageData(x, y, 1, 1).data
         let hex = "#" + ("000000" + rgb2hex(pixel)).slice(-6)
-        console.log(pos, event, coord, hex)
+        let paintArea = document.querySelector("#colour-value")
+        paintArea.style.backgroundColor = hex
+        console.log(pos, event, coord, hex, paintArea)
     }
 
     upload.addEventListener("change", previewImage)

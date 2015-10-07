@@ -8,11 +8,8 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 
     var previewImage = function previewImage() {
         var file = upload.files[0];
-        var preview = document.querySelector("#image-preview");
         var ctx = canvas.getContext("2d");
         var reader = new FileReader();
-
-        console.log("Upload", upload, "File", file, "Preview", preview);
 
         reader.onloadend = function () {
             var img = new Image();
@@ -22,15 +19,10 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
                 ctx.drawImage(img, 0, 0);
             };
             img.src = reader.result;
-            preview.src = reader.result;
             return;
         };
 
-        if (preview) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
-        }
+        reader.readAsDataURL(file);
     };
 
     // Taken from https://stackoverflow.com/a/6736135
@@ -72,7 +64,9 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
         var ctx = canvas.getContext("2d");
         var pixel = ctx.getImageData(x, y, 1, 1).data;
         var hex = "#" + ("000000" + rgb2hex(pixel)).slice(-6);
-        console.log(pos, event, coord, hex);
+        var paintArea = document.querySelector("#colour-value");
+        paintArea.style.backgroundColor = hex;
+        console.log(pos, event, coord, hex, paintArea);
     };
 
     upload.addEventListener("change", previewImage);
