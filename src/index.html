@@ -23,12 +23,18 @@
                 MDN
             </a> has an introduction into processing file uploads as data-uri where upon I build this project.
         </p>
+        <h2 id="cta">Get active</h2>
         <form action="#">
             <input name="image-upload" id="image-upload" type="file" />
         </form>
+        <h2 id="results">Results</h2>
         <div>
-            Preview:
+            Preview as img:
             <img id="image-preview" alt="Image preview" />
+        </div>
+        <div>
+            Preview as canvas:
+            <canvas id="canvas-preview"></canvas>
         </div>
         <script type="text/javascript" src="app.min.js"></script>
     </body>

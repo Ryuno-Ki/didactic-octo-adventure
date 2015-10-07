@@ -2,3 +2,15 @@ body {
     color: #000;
     background-color: #FFF;
 }
+
+#results + div,
+#results + div + div {
+    width: 45%;
+    float: left;
+}
+
+#image-upload {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
