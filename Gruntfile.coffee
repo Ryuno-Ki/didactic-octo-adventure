@@ -29,7 +29,9 @@ module.exports = (grunt) ->
             src: [
                 'index.html'
                 'app.min.css'
+                'app.min.css.map'
                 'app.min.js'
+                'app.min.js.map'
                 'require.min.js'
             ]
 
@@ -86,10 +88,11 @@ module.exports = (grunt) ->
                     'src/css/*.css'
                 ]
                 tasks: [
+                    'htmlmin'
                     'cssmin'
                     'babel'
                     'uglify'
-                    'jshint'
+                    # 'jshint'
                     'gh-pages'
                     # 'mocha-chai-sinon'
                 ]
