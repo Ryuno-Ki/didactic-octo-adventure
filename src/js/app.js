@@ -6,6 +6,80 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
     var upload = document.querySelector("input[type='file']");
     var canvas = document.querySelector("#canvas-preview");
 
+    var createImageSlice = function createImageSlice(id) {
+        var newCanvas = canvas.parentElement.querySelector(id);
+        if (newCanvas === null) {
+            newCanvas = document.createElement("canvas");
+            canvas.parentElement.appendChild(newCanvas);
+        }
+        newCanvas.id = id;
+        newCanvas.height = canvas.height;
+        newCanvas.width = canvas.width;
+        return newCanvas;
+    };
+
+    var rgb2hex = function rgb2hex(rgb) {
+        var _rgb = _slicedToArray(rgb, 3);
+
+        var r = _rgb[0];
+        var g = _rgb[1];
+        var b = _rgb[2];
+
+        if (r > 255 || g > 255 || b > 255) {
+            throw "Invalid colour!";
+        }
+        return (r << 16 | g << 8 | b).toString(16);
+    };
+
+    var image2matrix = function image2matrix(image) {
+        var rows = image.data.length;
+        var matrix = [];
+        for (var j = 0; j < rows; j += 4) {
+            matrix.push(image.data.subarray(j, j + 3));
+        }
+        return matrix;
+    };
+
+    var sliceCanvasColour = function sliceCanvasColour(c, colour) {
+        var ctx = c.getContext("2d");
+        var hex = undefined,
+            x = undefined,
+            y = undefined;
+        var matrix = image2matrix(canvas.getContext("2d").getImageData(0, 0, c.width, c.height));
+        matrix.forEach(function (triplet, i) {
+            switch (colour) {
+                case "red":
+                    hex = "#" + ("000000" + (function (redComponent) {
+                        return rgb2hex([redComponent, 0, 0]);
+                    })(triplet[0])).slice(-6);
+                    break;
+                case "green":
+                    hex = "#" + ("000000" + (function (greenComponent) {
+                        return rgb2hex([0, greenComponent, 0]);
+                    })(triplet[1])).slice(-6);
+                    break;
+                case "blue":
+                    hex = "#" + ("000000" + (function (blueComponent) {
+                        return rgb2hex([0, 0, blueComponent]);
+                    })(triplet[2])).slice(-6);
+                    break;
+            }
+            ctx.fillStyle = hex;
+            x = i % canvas.width;
+            y = Math.floor(i / canvas.width);
+            ctx.fillRect(x, y, 1, 1);
+        });
+    };
+
+    var sliceCanvas = function sliceCanvas(img) {
+        var red = createImageSlice("red");
+        sliceCanvasColour(red, "red");
+        var green = createImageSlice("green");
+        sliceCanvasColour(green, "green");
+        var blue = createImageSlice("blue");
+        sliceCanvasColour(blue, "blue");
+    };
+
     var previewImage = function previewImage() {
         var file = upload.files[0];
         var ctx = canvas.getContext("2d");
@@ -17,6 +91,7 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
+                sliceCanvas(img);
             };
             img.src = reader.result;
             return;
@@ -42,19 +117,6 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
         return undefined;
     };
 
-    var rgb2hex = function rgb2hex(rgb) {
-        var _rgb = _slicedToArray(rgb, 3);
-
-        var r = _rgb[0];
-        var g = _rgb[1];
-        var b = _rgb[2];
-
-        if (r > 255 || g > 255 || b > 255) {
-            throw "Invalid colour!";
-        }
-        return (r << 16 | g << 8 | b).toString(16);
-    };
-
     var extractPixel = function extractPixel(event) {
         var canvas = event.target;
         var pos = findPos(canvas);
@@ -70,6 +132,6 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
     };
 
     upload.addEventListener("change", previewImage);
-    canvas.addEventListener("mousemove", extractPixel);
+    // canvas.addEventListener("mousemove", extractPixel)
 })();
 //# sourceMappingURL=app.js.map
